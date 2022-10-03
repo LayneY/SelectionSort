@@ -1,0 +1,84 @@
+
+
+// ⇩  ⇩  ⇩  ⇩  ⇩  ⇩  ⇩  ⇩  ⇩  ⇩  ⇩  ⇩  ⇩  ⇩  ⇩  ⇩  ⇩  ⇩  ⇩  ⇩  ⇩  ⇩  ⇩  ⇩  ⇩  ⇩  ⇩  ⇩  ⇩  ⇩  ⇩  ⇩  ⇩  ⇩  ⇩  ⇩  ⇩  ⇩  ⇩
+// DO NOT ALTER THE TEXT BETWEEN THESE LINES =========={M{E{R{L{I{N{1}N}I}L}R}E}M}=====================================
+let unsortedIntegers = [5, 1, 4, 2, 8]
+// DO NOT ALTER THE TEXT BETWEEN THESE LINES =========={M{E{R{L{I{N{1}N}I}L}R}E}M}=====================================
+// ⇧  ⇧  ⇧  ⇧  ⇧  ⇧  ⇧  ⇧  ⇧  ⇧  ⇧  ⇧  ⇧  ⇧  ⇧  ⇧  ⇧  ⇧  ⇧  ⇧  ⇧  ⇧  ⇧  ⇧  ⇧  ⇧  ⇧  ⇧  ⇧  ⇧  ⇧  ⇧  ⇧  ⇧  ⇧  ⇧  ⇧  ⇧  ⇧
+
+
+// Add your code below:
+selectionSort(array:unsortedIntegers)
+
+func selectionSort(array:[Int]){
+    var leftToSort = array
+    var finalArray = array
+    var index = 0
+    var pass = 1
+    var totalSwaps = 0
+
+    print("Pass: 0, Swaps: 0/0, Array: \(finalArray)")
+    
+    //print()
+    for _ in 0 ..< finalArray.count - 1 {
+        var swaps = 0
+        let i = findSmallest(leftToSort)
+        //print("SMALLEST, INDEX: \(i)")
+        swap(array:&finalArray, index1:index, index2: finalArray.firstIndex(of: i[0])!)
+        swaps += 1
+        totalSwaps += 1
+        leftToSort = leftToSort.filter { $0 != i[0] }
+        index += 1
+        print("Pass: \(pass), Swaps: \(swaps)/\(totalSwaps), Array: \(finalArray)")
+        //print("LEFT: \(leftToSort)")
+        //print()
+        pass += 1
+    }
+}
+
+func swap(array:inout [Int], index1: Int, index2: Int){
+    let elem1 = array[index1]
+    let elem2 = array[index2]
+
+    array[index1] = elem2
+    array[index2] = elem1
+}
+
+
+func findSmallest(_ array: [Int]) -> [Int] {
+    var lastSmallest = array[0]
+    var index = 0
+    var returnIndex = 0
+
+    for i in array {
+        if i < lastSmallest {
+            lastSmallest = i
+            returnIndex = index
+        }
+        index += 1
+    }
+    return [lastSmallest, returnIndex]
+}
+
+func findSmallest2(_ array:[Int], _ afterIndex: Int) -> Int {
+    var findArray = array
+    if afterIndex >= 0 {
+        for i in 0 ... afterIndex {
+            findArray.remove(at:i)
+        }
+    }
+    var lastSmallest = findArray[0]
+    var index = 0
+    var returnIndex = 0
+    
+    for elem in findArray {
+        if elem < lastSmallest {
+            lastSmallest = elem
+            returnIndex = index
+        }
+        index += 1
+        
+    }
+    return returnIndex
+}
+
